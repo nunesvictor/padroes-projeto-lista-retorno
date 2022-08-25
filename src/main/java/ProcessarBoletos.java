@@ -1,20 +1,23 @@
-public class ProcessarBoletos {
-    private LeituraRetorno leituraRetorno;
+import java.util.List;
+import java.util.function.Function;
 
-    public ProcessarBoletos(LeituraRetorno leituraRetorno) {
+public class ProcessarBoletos {
+    private Function<String, List<Boleto>> leituraRetorno;
+
+    public ProcessarBoletos(Function<String, List<Boleto>> leituraRetorno) {
         this.leituraRetorno = leituraRetorno;
     }
 
-    public LeituraRetorno getLeituraRetorno() {
+    public Function<String, List<Boleto>> getLeituraRetorno() {
         return leituraRetorno;
     }
 
-    public void setLeituraRetorno(LeituraRetorno leituraRetorno) {
+    public void setLeituraRetorno(Function<String, List<Boleto>> leituraRetorno) {
         this.leituraRetorno = leituraRetorno;
     }
 
     public void processar(String nomeArquivo) {
-        var lista = leituraRetorno.lerArquivo(nomeArquivo);
-        System.out.println(lista);
+        var lista = leituraRetorno.apply(nomeArquivo);
+        lista.forEach(System.out::println);
     }
 }
